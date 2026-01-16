@@ -34,21 +34,22 @@ function ConnectSlackButton({ onConnected }) {
   const slackCallbackUrl = import.meta.env.VITE_SLACK_CALLBACK_URL;
   console.log('slackCallbackUrl:', slackCallbackUrl);
   const handleClick = () => {
+    window.location.href = import.meta.env.VITE_SLACK_APP_SHAREABLE_URL;
 
-    const clientId = import.meta.env.VITE_SLACK_CLIENT_ID;
-    const redirectUri = `${slackCallbackUrl}/slack/oauth/callback`;
-    const scope = 'chat:write,channels:read,groups:read,team:read,im:history,message.channels';
-    const state =
-      (window.crypto?.randomUUID && window.crypto.randomUUID()) ||
-      Array.from(window.crypto.getRandomValues(new Uint32Array(4)), (n) => n.toString(16)).join('');
+    // const clientId = import.meta.env.VITE_SLACK_CLIENT_ID;
+    // const redirectUri = `${slackCallbackUrl}/slack/oauth/callback`;
+    // const scope = 'chat:write,channels:read,groups:read,team:read,im:history,message.channels';
+    // const state =
+    //   (window.crypto?.randomUUID && window.crypto.randomUUID()) ||
+    //   Array.from(window.crypto.getRandomValues(new Uint32Array(4)), (n) => n.toString(16)).join('');
 
-    const url = new URL('https://slack.com/oauth/v2/authorize');
-    url.searchParams.set('client_id', clientId);
-    url.searchParams.set('redirect_uri', redirectUri);
-    url.searchParams.set('scope', scope);
-    url.searchParams.set('state', state);
+    // const url = new URL('https://slack.com/oauth/v2/authorize');
+    // url.searchParams.set('client_id', clientId);
+    // url.searchParams.set('redirect_uri', redirectUri);
+    // url.searchParams.set('scope', scope);
+    // url.searchParams.set('state', state);
 
-    popupRef.current = window.open(url.toString(), 'slack-auth', 'width=500,height=600');
+    // popupRef.current = window.open(url.toString(), 'slack-auth', 'width=500,height=600');
   };
 
 

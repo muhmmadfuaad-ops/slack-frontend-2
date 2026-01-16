@@ -29,7 +29,7 @@ function WorkspacesList({ workspaces = [], selectedWorkspace, onSelectWorkspace,
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>
+              <span style={{ color: 'black' }}>
                 {ws.is_internal ? '🟢' : '🟡'} {ws.team_name || ws.team_id}
               </span>
               {ws.is_internal && <span title="Internal workspace">🏠 INTERNAL</span>}
