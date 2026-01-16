@@ -17,6 +17,7 @@ import {
   createIdentityMapping,
   deleteIdentityMapping,
 } from '../utils/api';
+import Connections from '../components/Connections';
 
 const layoutStyle = {
   display: 'grid',
@@ -290,46 +291,47 @@ function DashboardLayout() {
 
     const channels = selectedWorkspace ? channelsByTeam[selectedWorkspace.team_id] || [] : [];
     return (
-      <ChannelsList
-        channels={channels}
-        selectedWorkspace={selectedWorkspace}
-        loading={loading && !!selectedWorkspace}
-        selectedChannelId={selectedChannelId}
-        onSelectChannel={(ch) => setSelectedChannelId(ch.id)}
-        onCreateMapping={() => {
-          setActiveTab('mappings');
-          setEditingMapping(null);
-        }}
-      />
+      // <ChannelsList
+      //   channels={channels}
+      //   selectedWorkspace={selectedWorkspace}
+      //   loading={loading && !!selectedWorkspace}
+      //   selectedChannelId={selectedChannelId}
+      //   onSelectChannel={(ch) => setSelectedChannelId(ch.id)}
+      //   onCreateMapping={() => {
+      //     setActiveTab('mappings');
+      //     setEditingMapping(null);
+      //   }}
+      // />
+      <></>
     );
   };
 
-  const rightPanel = () => {
-    if (activeTab === 'routes') {
-      return (
-        <CreateRouteForm
-          workspaces={workspaces}
-          channels={allChannels}
-          route={editingRoute}
-          onSave={handleSaveRoute}
-          onCancel={() => setEditingRoute(null)}
-        />
-      );
-    }
+  // const rightPanel = () => {
+  //   if (activeTab === 'routes') {
+  //     return (
+  //       <CreateRouteForm
+  //         workspaces={workspaces}
+  //         channels={allChannels}
+  //         route={editingRoute}
+  //         onSave={handleSaveRoute}
+  //         onCancel={() => setEditingRoute(null)}
+  //       />
+  //     );
+  //   }
 
-    if (activeTab === 'mappings') {
-      return (
-        <CreateIdentityMappingForm
-          workspaces={workspaces}
-          mapping={editingMapping}
-          onSave={handleSaveMapping}
-          onCancel={() => setEditingMapping(null)}
-        />
-      );
-    }
+  //   if (activeTab === 'mappings') {
+  //     return (
+  //       <CreateIdentityMappingForm
+  //         workspaces={workspaces}
+  //         mapping={editingMapping}
+  //         onSave={handleSaveMapping}
+  //         onCancel={() => setEditingMapping(null)}
+  //       />
+  //     );
+  //   }
 
-    return <div style={{ color: '#6b7280' }}>Select a route or mapping to edit.</div>;
-  };
+  //   return <div style={{ color: '#6b7280' }}>Select a route or mapping to edit.</div>;
+  // };
 
   return (
     <div>
@@ -347,11 +349,12 @@ function DashboardLayout() {
               loadRoutes();
             }}
           />
+          <Connections workspaces={workspaces} />
         </div>
 
         <div style={panelStyle}>{centerContent()}</div>
 
-        <div style={panelStyle}>{rightPanel()}</div>
+        {/* <div style={panelStyle}>{rightPanel()}</div> */}
       </div>
 
       {loading && (

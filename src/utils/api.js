@@ -85,3 +85,12 @@ export async function deleteIdentityMapping(key) {
     throw err;
   }
 }
+
+export async function createConnection(data) {
+  try {
+    const res = await api.post('/api/connections', data);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+}
