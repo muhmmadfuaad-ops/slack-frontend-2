@@ -1,6 +1,9 @@
 import ConnectSlackButton from './ConnectSlackButton';
 
 function WorkspacesList({ workspaces = [], selectedWorkspace, onSelectWorkspace, onMarkInternal, onRefresh }) {
+  // Check if any workspace is already marked as internal
+  const hasInternalWorkspace = workspaces.some((ws) => ws.is_internal);
+
   return (
     <div>
       <div
@@ -40,15 +43,18 @@ function WorkspacesList({ workspaces = [], selectedWorkspace, onSelectWorkspace,
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onMarkInternal && onMarkInternal(ws);
+                    if (!hasInternalWorkspace) {
+                      onMarkInternal && onMarkInternal(ws);
+                    }
                   }}
+                  disabled={hasInternalWorkspace}
                   style={{
                     padding: '8px 10px',
                     borderRadius: '8px',
-                    background: '#2563eb',
+                    background: hasInternalWorkspace ? '#9ca3af' : '#2563eb',
                     color: '#fff',
                     border: 'none',
-                    cursor: 'pointer',
+                    cursor: hasInternalWorkspace ? 'not-allowed' : 'pointer',
                   }}
                 >
                   Mark Internal
