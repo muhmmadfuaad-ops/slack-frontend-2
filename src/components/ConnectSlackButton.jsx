@@ -31,9 +31,12 @@ function ConnectSlackButton({ onConnected }) {
     return () => window.removeEventListener('message', handleMessage);
   }, [onConnected]);
 
+  const slackCallbackUrl = import.meta.env.VITE_SLACK_CALLBACK_URL;
+  console.log('slackCallbackUrl:', slackCallbackUrl);
   const handleClick = () => {
+
     const clientId = import.meta.env.VITE_SLACK_CLIENT_ID;
-    const redirectUri = 'http://localhost:3000/slack/oauth/callback';
+    const redirectUri = `${slackCallbackUrl}/slack/oauth/callback`;
     const scope = 'chat:write,channels:read,groups:read,team:read,im:history,message.channels';
     const state =
       (window.crypto?.randomUUID && window.crypto.randomUUID()) ||
@@ -47,6 +50,8 @@ function ConnectSlackButton({ onConnected }) {
 
     popupRef.current = window.open(url.toString(), 'slack-auth', 'width=500,height=600');
   };
+
+
 
   return (
     <button style={buttonStyle} onClick={handleClick}>
